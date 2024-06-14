@@ -8,6 +8,12 @@
     border-top-right-radius: 0!important;
 }
 
+/* here we go again... */
+li[role=menuitem].no-truncation>span.truncate {
+    white-space: unset!important
+}
+
+
 .flag {
     border-radius: 0.125rem!important;
 }

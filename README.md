@@ -3,15 +3,22 @@ Frontend for Ragnarok written in Next.js
 
 ## Progress
 The frontends development has basically just started and barely anything has been made. Here is a list of all endpoints + features and if they've been made or not.
+
+Features:
 - [x] Authentication
+- [ ] Profile banner change
+- [ ] Beatmap rank request
 - [ ] Navbar
+- [ ] Footer
+- [ ] Search
+
+Pages:
 - [ ] Homepage
 - [x] Leaderboards
-- [ ] Search
-- [ ] Beatmap page
-- [ ] Profile page
 - [ ] Clan leaderboard
 - [ ] Clan page
+- [ ] Beatmap page
+- [ ] Profile page
 - [ ] Documents
 - [ ] "Support us" page
 - [ ] Score page

@@ -43,6 +43,9 @@ export const options = {
                 password: { label: "Password", type: "password" },
             },
             async authorize(credentials, req) {
+                if (!credentials)
+                    throw new Error("Missing required input.");
+
                 const encodedPassword = MD5(credentials.password);
                 
                 const retardedAssLanguage = new FormData();
@@ -60,7 +63,7 @@ export const options = {
                 }
                 
                 if (response.error) {
-                    throw new Error(response.error);
+                    throw new Error("Invalid login.");
                 }
                 
                 var access_token = response.access_token;

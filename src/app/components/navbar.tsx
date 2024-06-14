@@ -13,9 +13,8 @@ import {
     DropdownTrigger,
     DropdownMenu,
     DropdownItem,
-    Tabs,
-    Tab,
-    DropdownSection
+    DropdownSection,
+    Button
 } from "@nextui-org/react";
 
 import React from "react";
@@ -24,6 +23,7 @@ import { ThemeSwitcher } from "./switcher";
 import Login from "./login";
 import { signOut, useSession } from "next-auth/react";
 import { usePathname } from "next/navigation";
+import { IconUserPlus } from "@tabler/icons-react";
 
 function NavbarItemWrapper(props: {
     title: string,
@@ -66,7 +66,8 @@ export default function Navbar() {
                 <NavbarContent justify="end">
                     <ThemeSwitcher />
                     <Dropdown classNames={{
-                        base: session == undefined || session == null ? "min-w-[300px]" : ""
+                        base: !session ? "w-[350px]" : "",
+                        content: !session ? "p-0" : ""
                     }}>
                         <DropdownTrigger>
                             <Avatar
@@ -76,17 +77,34 @@ export default function Navbar() {
                                 className="transition-transform"
                             />
                         </DropdownTrigger>
-                        {session == undefined || session == null ? (
-                            <DropdownMenu aria-label="Profile Actions" variant="flat">
+                        {!session ? (
+                            <DropdownMenu
+                                aria-label="Profile Actions"
+                                variant="flat"
+                                className="p-0"
+                            >
                                 <DropdownItem isReadOnly>
-                                    <Tabs disabledKeys={["sign-up"]} fullWidth selectedKey={"login"}>
-                                        <Tab key="login" title="Login">
-                                            <Login />
-                                        </Tab>
-                                        <Tab key="sign-up" title="Sign up">
-                                            <h1>Not implemented.</h1>
-                                        </Tab>
-                                    </Tabs>
+                                    <Login />
+                                </DropdownItem>
+                                <DropdownItem
+                                    isReadOnly
+                                    className="bg-content2 rounded-t-none px-4 py-2 no-truncation"
+                                >
+                                    <h4 className="text-large font-semibold mb-2">No account?</h4>
+                                    <p className="text-default-500 mb-4">
+                                        Go ahead and sign up to quickly make an account and join the server
+                                        with the rest of the players!
+                                    </p>
+                                    <div className="flex justify-end">
+                                        <Button
+                                            type="submit"
+                                            color="primary"
+                                            isDisabled
+                                            endContent={<IconUserPlus />}
+                                        >
+                                            Sign up!
+                                        </Button>
+                                    </div>
                                 </DropdownItem>
                             </DropdownMenu>
                         ) : (
@@ -119,7 +137,7 @@ export default function Navbar() {
                             href="/"
                             size="lg"
                         >
-                            Home
+                            home
                         </NextUILink>
                     </NavbarMenuItem>
                     <NavbarMenuItem>
@@ -129,7 +147,7 @@ export default function Navbar() {
                             href="/leaderboard/osu/vanilla"
                             size="lg"
                         >
-                            Leaderboard
+                            home
                         </NextUILink>
                     </NavbarMenuItem>
                 </NavbarMenu>

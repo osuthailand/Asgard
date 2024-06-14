@@ -37,7 +37,7 @@ function NavbarItemWrapper(props: {
 
                 {/* osu style */}
                 {pathname == props.href ? (
-                    <span className="h-[3px] mt-8 bg-blue-700 w-full absolute"></span>
+                    <span className="h-[3px] mt-8 bg-content3 w-full absolute"></span>
                 ) : null}
             </NextUILink>
         </NavbarItem >
@@ -147,7 +147,7 @@ export default function Navbar() {
                             href="/leaderboard/osu/vanilla"
                             size="lg"
                         >
-                            home
+                            leaderboard
                         </NextUILink>
                     </NavbarMenuItem>
                 </NavbarMenu>

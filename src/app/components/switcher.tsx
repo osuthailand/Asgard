@@ -9,11 +9,11 @@ export function ThemeSwitcher() {
 
     return theme === "light" ? (
         <Button isIconOnly variant="bordered" aria-label="Turn on dark mode" onPress={() => setTheme("dark")}>
-            <IconMoon />
+            <IconMoon size="18" />
         </Button>
     ) : (
         <Button isIconOnly variant="bordered" aria-label="Turn on light mode" onPress={() => setTheme("light")}>
-            <IconSun />
+            <IconSun size="18" />
         </Button>
     );
 }

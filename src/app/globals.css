@@ -1,0 +1,23 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* i fucking hate everything baout javasciprt and scs jnextui fuck this*/
+.flex.flex-col.relative.gap-4.w-full>.p-4.z-0.flex.flex-col.relative.justify-between.gap-4.bg-content1.overflow-auto.rounded-large.shadow-small.w-full {
+    border-top-left-radius: 0!important;
+    border-top-right-radius: 0!important;
+}
+
+.flag {
+    border-radius: 0.125rem!important;
+}
+
+@font-face {
+    font-family: "Exo 2";
+    font-style: normal;
+    src: url(../../public/fonts/Exo2.ttf) format("truetype");
+}
+
+html {
+    font-family: "Exo 2", sans-serif;
+}

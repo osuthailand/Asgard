@@ -88,7 +88,7 @@ export default function Navbar() {
                                 </DropdownItem>
                                 <DropdownItem
                                     isReadOnly
-                                    className="bg-content2 rounded-t-none px-4 py-2 no-truncation"
+                                    className="bg-content2 rounded-t-none px-6 py-3.5 no-truncation"
                                 >
                                     <h4 className="text-large font-semibold mb-2">No account?</h4>
                                     <p className="text-default-500 mb-4">
@@ -100,9 +100,10 @@ export default function Navbar() {
                                             type="submit"
                                             color="primary"
                                             isDisabled
-                                            endContent={<IconUserPlus />}
+                                            className="w-[8rem] flex justify-between"
                                         >
                                             Sign up!
+                                            <IconUserPlus />
                                         </Button>
                                     </div>
                                 </DropdownItem>

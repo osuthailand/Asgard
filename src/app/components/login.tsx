@@ -75,8 +75,9 @@ export default function Login() {
                 Forgotten password?
             </NextUILink>
             <div className="flex justify-end mt-2">
-                <Button type="submit" color="primary" isDisabled={loading} endContent={<IconLogin2 />}>
+                <Button type="submit" color="primary" className="w-[8rem] flex justify-between" isDisabled={loading}>
                     Login
+                    <IconLogin2 />
                 </Button>
             </div>
             {loading ? <Spinner size="lg" className="absolute z-2 bottom-0 top-0 left-0 right-0" /> : null}

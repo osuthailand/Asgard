@@ -26,4 +26,4 @@ Pages:
 If I come up with any more ideas, I'll update the list.
 
 ## License
-Ragnarok's code is licensed under the [GNU Affero General Public License v3 licence](https://tldrlegal.com/license/gnu-affero-general-public-license-v3-(agpl-3.0)). Please see [the licence file](https://github.com/osuthailand/Asgard/blob/main/LICENSE) for more information.
+Ragnarok's code is licensed under the [GNU Affero General Public License v3 licence](https://tldrlegal.com/license/gnu-affero-general-public-license-v3-(agpl-3.0)). Please see [the licence file](https://github.com/osuthailand/Asgard/blob/master/LICENSE) for more information.

@@ -19,7 +19,6 @@ import {
 
 import React from "react";
 import Link from "next/link";
-import { ThemeSwitcher } from "./switcher";
 import Login from "./login";
 import { signOut, useSession } from "next-auth/react";
 import { usePathname } from "next/navigation";
@@ -64,7 +63,6 @@ export default function Navbar() {
                     <NavbarItemWrapper title="leaderboard" href="/leaderboard/osu/vanilla" />
                 </NavbarContent>
                 <NavbarContent justify="end">
-                    <ThemeSwitcher />
                     <Dropdown classNames={{
                         base: !session ? "w-[350px]" : "",
                         content: !session ? "p-0" : ""

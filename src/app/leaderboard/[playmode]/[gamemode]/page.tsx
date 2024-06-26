@@ -20,6 +20,7 @@ import React, { useMemo, useState } from "react";
 import useSWR from "swr";
 
 import LeaderboardBanner from "../../../../../public/images/leaderboard-banner.jpg";
+import { gamemodeToNum, playModeToNum } from "@/utils/modes";
 
 type LeaderboardButtonProps = {
     slug: string,
@@ -35,38 +36,12 @@ function LeaderboardButton(props: LeaderboardButtonProps) {
         href={props.href}
         radius="md"
         isDisabled={props.isDisabled}
-        className={props.slug != props.activeState ? "text-white" : ""}
+        className={"bg-content2" + (props.slug != props.activeState ? "text-white" : "")}
         size="sm"
         variant={props.slug == props.activeState ? "solid" : "light"}
     >
         {props.title}
     </Button>;
-}
-
-function playmode_number(playmode: string): number {
-    switch (playmode) {
-        case "osu":
-            return 0;
-        case "taiko":
-            return 1;
-        case "catch":
-            return 2;
-        case "mania":
-            return 3;
-        default:
-            throw new Error("invalid playmode");
-    }
-}
-
-function gamemode_number(gamemode: string): number {
-    switch (gamemode) {
-        case "vanilla":
-            return 0;
-        case "relax":
-            return 1;
-        default:
-            throw new Error("invalid gamemode");
-    }
 }
 
 const fetcher = (url: string) => fetch(url).then(r => r.json());
@@ -77,11 +52,11 @@ export default function Leaderboard({
     params: { playmode: string, gamemode: string; };
 }) {
     const [page, setPage] = useState(1);
-    const playmode = playmode_number(params.playmode);
-    const gamemode = gamemode_number(params.gamemode);
+    const playmode = playModeToNum(params.playmode);
+    const gamemode = gamemodeToNum(params.gamemode);
 
     const { data, isLoading } = useSWR(
-        `https://api.rina.place/api/v1/community/leaderboard?mode=${playmode}&gamemode=${gamemode}&page=${page}`,
+        `https://api.rina.place/api/community/leaderboard?mode=${playmode}&gamemode=${gamemode}&page=${page}`,
         fetcher,
         {
             keepPreviousData: true,
@@ -93,7 +68,7 @@ export default function Leaderboard({
     }, [data?.count, rowsPerPage]);
 
     return (
-        <div className="max-w-[1127px] mx-auto">
+        <div className="max-w-[1127px] mx-auto container-shadow">
             <Card isFooterBlurred className="max-h-[250px] rounded-b-none rounded-t-md">
                 <CardHeader className="absolute z-10 top-1 bottom-1 px-8 py-14">
                     <p className="text-[48px] text-white">Leaderboard</p>
@@ -102,7 +77,7 @@ export default function Leaderboard({
                     height={250}
                     width={1127}
                     alt="Leaderboard banner"
-                    className="z-0 w-full object-cover rounded-b-none rounded-t-md"
+                    className="z-0 w-full object-cover rounded-b-none rounded-t-md brightness-50"
                     src={LeaderboardBanner}
 
                 />
@@ -175,11 +150,16 @@ export default function Leaderboard({
                         </div>
                     ) : null
                 }
+                classNames={{
+                    table: "leaderboard",
+                    tr: "rounded-md bg-content2/70 hover:bg-content2",
+                    th: "bg-content1"
+                }}
             >
                 <TableHeader>
                     <TableColumn>{""}</TableColumn>
-                    <TableColumn className="w-full">Username</TableColumn>
-                    <TableColumn className="font-semibold w-0">Performance points</TableColumn>
+                    <TableColumn className="w-full">{""}</TableColumn>
+                    <TableColumn className="text-default-600 font-semibold w-0">Performance points</TableColumn>
                     <TableColumn className="text-default-400 w-0">Accuracy</TableColumn>
                     <TableColumn className="text-default-400 w-0">Play count</TableColumn>
                     <TableColumn className="text-default-400 w-0">Level</TableColumn>
@@ -201,19 +181,19 @@ export default function Leaderboard({
                         level: number,
                     }) => (
                         <TableRow key={item.username}>
-                            <TableCell>#{item.rank}</TableCell>
+                            <TableCell className="bg-content3/50 rounded-l-md text-center">#{item.rank}</TableCell>
                             <TableCell className="flex flex-grow gap-2 items-center ">
                                 <span className={"flag flag-country-" + item.country.toLowerCase()} />
                                 <Link className="hover:underline" href={"/user/" + item.id}>{item.username}</Link>
                             </TableCell>
-                            <TableCell className="font-semibold mx-4">{item.pp}pp</TableCell>
-                            <TableCell className="text-default-500 mx-4">{item.accuracy}%</TableCell>
-                            <TableCell className="text-default-500 mx-4">{item.playcount}</TableCell>
-                            <TableCell className="text-default-500">{item.level}</TableCell>
+                            <TableCell className="font-semibold mx-4">{parseFloat(item.pp.toFixed(0)).toLocaleString()}pp</TableCell>
+                            <TableCell className="text-default-500 mx-4">{item.accuracy.toFixed(0).toLocaleString()}%</TableCell>
+                            <TableCell className="text-default-500 mx-4">{item.playcount.toLocaleString()}</TableCell>
+                            <TableCell className="text-default-500 rounded-r-md">{item.level}</TableCell>
                         </TableRow>
                     )}
                 </TableBody>
             </Table>
-        </div>
+        </div >
     );
 }

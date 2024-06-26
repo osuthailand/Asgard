@@ -16,8 +16,9 @@ export default function Login() {
         event.preventDefault();
         setLoading(true);
 
-        const username = event.target.username.value;
-        const password = event.target.password.value;
+        const target: any = event.target;
+        const username = target.username.value;
+        const password = target.password.value;
 
         try {
             signIn("credentials", {

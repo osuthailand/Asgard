@@ -2,30 +2,30 @@ import CredentialsProvider from "next-auth/providers/credentials";
 
 import jwt from "jsonwebtoken";
 import { MD5 } from "crypto-js";
+import { NextAuthOptions, Session, User } from "next-auth";
+import { JWT } from "next-auth/jwt";
 
-export const options = {
-    secret: process.env.SECRET_KEY,
+type JWTDecodedPayload = {
+    id: number,
+    username: string,
+    privileges: number,
+    is_bat: boolean,
+    is_staff: boolean,
+    is_admin: boolean,
+    accessToken: string;
+}
+
+export const options: NextAuthOptions = {
+    secret: process.env.NEXTAUTH_SECRET,
     callbacks: {
-        // i hate this and i feel like it's wrong, revisit this in 2077.
-        jwt({ token, user }) {
+        jwt({ token, user }: {token: JWT, user: any }) {
             if (user) {
-                token.id = user.id;
-                token.username = user.username;
-                token.privileges = user.privileges;
-                token.is_bat = user.is_bat;
-                token.is_staff = user.is_staff;
-                token.is_admin = user.is_admin;
-                return token;
+                return user;
             }
             return token;
         },
-        session({ session, token }) {
-            session.user.id = token.id;
-            session.user.username = token.username;
-            session.user.privileges = token.privileges;
-            session.user.is_bat = token.is_bat;
-            session.user.is_staff = token.is_staff;
-            session.user.is_admin = token.is_admin;
+        session({ session, token }: { session: Session, token: JWT }) {
+            session.user = {...token}
             return session;
         }
     },
@@ -42,7 +42,7 @@ export const options = {
                 },
                 password: { label: "Password", type: "password" },
             },
-            async authorize(credentials, req) {
+            async authorize(credentials, req): Promise<JWTDecodedPayload> {
                 if (!credentials)
                     throw new Error("Missing required input.");
 
@@ -52,7 +52,7 @@ export const options = {
                 retardedAssLanguage.append("username", credentials.username);
                 retardedAssLanguage.append("password", encodedPassword.toString());
                 
-                var user = await fetch("https://api.rina.place/api/v1/auth/token", {
+                var user = await fetch(process.env.RINA_API_URL + "/api/auth/token", {
                     method: "POST",
                     body: retardedAssLanguage
                 });
@@ -66,11 +66,18 @@ export const options = {
                     throw new Error("Invalid login.");
                 }
                 
-                var access_token = response.access_token;
-                var decoded = jwt.verify(access_token, process.env.SECRET_KEY as string);
+                const access_token = response.access_token;
+                const decoded = jwt.verify(access_token, process.env.NEXTAUTH_SECRET as string);
+
+                if (typeof decoded == "string") {
+                    throw new Error("idk"+decoded);
+                }
+
+                const fart: JWTDecodedPayload = decoded.context;
                 return {
-                    ...decoded.context,
-                    id: decoded.sub
+                    ...fart,
+                    id: decoded.sub as unknown as number,
+                    accessToken: access_token
                 };
             }
         }),

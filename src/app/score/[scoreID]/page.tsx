@@ -1,4 +1,5 @@
 import { options } from "@/app/api/auth/[...nextauth]/options";
+import Container from "@/app/components/container";
 import WrappedTimeago from "@/app/components/timeago";
 import { ScoreType } from "@/types/score";
 import { Country } from "@/utils/country";
@@ -29,7 +30,7 @@ export default async function Page({ params }: {
     }
 
     return (
-        <div className="max-w-[1127px] bg-content1 mx-auto container-shadow rounded-b-md">
+        <Container>
             <Card isFooterBlurred className="max-h-[250px] rounded-b-none rounded-t-md">
                 <CardHeader className="absolute z-10 px-8 flex justify-between">
                     <p className="text-[48px] text-white">hejjj</p>
@@ -86,6 +87,6 @@ export default async function Page({ params }: {
                     </div>
                 </>
             ) : null}
-        </div>
+        </Container>
     );
 }

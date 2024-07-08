@@ -7,7 +7,6 @@
         "no-const-assign": ["error"],
         "no-constant-condition": ["error"],
         "no-unused-vars": "warn",
-        "max-len": ["error", { "code": 120, "tabWidth": 4 }],
-        "comma-dangle": ["error", "always"],
+        "max-len": ["error", { "code": 120, "tabWidth": 4 }]
     }
 }

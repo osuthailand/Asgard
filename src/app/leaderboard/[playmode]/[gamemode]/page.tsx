@@ -21,6 +21,7 @@ import useSWR from "swr";
 
 import LeaderboardBanner from "../../../../../public/images/leaderboard-banner.jpg";
 import { gamemodeToNum, playModeToNum } from "@/utils/modes";
+import Container from "@/app/components/container";
 
 type LeaderboardButtonProps = {
     slug: string,
@@ -68,7 +69,7 @@ export default function Leaderboard({
     }, [data?.count, rowsPerPage]);
 
     return (
-        <div className="max-w-[1127px] mx-auto container-shadow">
+        <Container>
             <Card isFooterBlurred className="max-h-[250px] rounded-b-none rounded-t-md">
                 <CardHeader className="absolute z-10 top-1 bottom-1 px-8 py-14">
                     <p className="text-[48px] text-white">Leaderboard</p>
@@ -151,7 +152,7 @@ export default function Leaderboard({
                     ) : null
                 }
                 classNames={{
-                    table: "leaderboard",
+                    table: "leaderboard px-4",
                     tr: "rounded-md bg-content2/70 hover:bg-content2",
                     th: "bg-content1"
                 }}
@@ -186,14 +187,20 @@ export default function Leaderboard({
                                 <span className={"flag flag-country-" + item.country.toLowerCase()} />
                                 <Link className="hover:underline" href={"/user/" + item.id}>{item.username}</Link>
                             </TableCell>
-                            <TableCell className="font-semibold mx-4">{parseFloat(item.pp.toFixed(0)).toLocaleString()}pp</TableCell>
-                            <TableCell className="text-default-500 mx-4">{item.accuracy.toFixed(0).toLocaleString()}%</TableCell>
-                            <TableCell className="text-default-500 mx-4">{item.playcount.toLocaleString()}</TableCell>
+                            <TableCell className="font-semibold mx-4">
+                                {parseFloat(item.pp.toFixed(0)).toLocaleString()}pp
+                            </TableCell>
+                            <TableCell className="text-default-500 mx-4">
+                                {item.accuracy.toFixed(0).toLocaleString()}%
+                            </TableCell>
+                            <TableCell className="text-default-500 mx-4">
+                                {item.playcount.toLocaleString()}
+                            </TableCell>
                             <TableCell className="text-default-500 rounded-r-md">{item.level}</TableCell>
                         </TableRow>
                     )}
                 </TableBody>
             </Table>
-        </div >
+        </Container>
     );
 }

@@ -9,10 +9,22 @@ const config: Config = {
         "./node_modules/@nextui-org/theme/dist/**/*.{js,ts,jsx,tsx}",
     ],
     darkMode: "class",
+    theme: {
+        extend: {
+            screens: {
+                "-2xl": { max: "1535px" },
+                "-xl": { max: "1279px" },
+                "-lg": { max: "1023px" },
+                "-md": { max: "767px" },
+                "-sm": { max: "639px" },
+            },
+        },
+    },
     plugins: [
         nextui({
             defaultTheme: "dark",
             themes: {
+                
                 dark: {
                     colors: {
                         background: "#0c0c0e",

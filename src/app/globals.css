@@ -122,3 +122,7 @@ html {
     border-collapse: separate;
     border-spacing: 0 3px;
 }
+
+:root {
+    --nextui-hover-opacity: 1;
+}

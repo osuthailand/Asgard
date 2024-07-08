@@ -4,7 +4,8 @@ const nextConfig = {
         domains: [
             "a.rina.place",
             "b.ppy.sh",
-            "assets.ppy.sh"
+            "assets.ppy.sh",
+            "assets.rina.place"
         ],
     },
 };

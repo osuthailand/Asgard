@@ -1,6 +1,6 @@
 "use client";
 
-import { Card, CardBody, CardHeader, Chip, Divider, Spinner, Tooltip } from "@nextui-org/react";
+import { Card, CardBody, CardHeader, Divider, Spinner, Tooltip } from "@nextui-org/react";
 import { FaInfoCircle } from "react-icons/fa";
 import TimeAgo from "javascript-time-ago";
 import en from "javascript-time-ago/locale/en";
@@ -11,11 +11,16 @@ import useSWR from "swr";
 import { getPlaystyles } from "@/utils/playstyles";
 import dynamic from "next/dynamic";
 
-const Chart = dynamic(() => import('react-apexcharts'), { ssr: false });
+const Chart = dynamic(() => import("react-apexcharts"), { ssr: false });
 
 TimeAgo.addDefaultLocale(en);
 
 const fetcher = (url: string) => fetch(url).then(r => r.json());
+
+type ProfileHistory = {
+    timestamp: String,
+    value: number,
+};
 
 export default function UserStats(props: {
     userInfo: UserProfileData;
@@ -23,7 +28,14 @@ export default function UserStats(props: {
     playMode: number;
 }) {
     const { data, isLoading } = useSWR(
-        `https://api.rina.place/api/users/get/${props.userInfo.id}/stats?gamemode=${props.gamemode}&mode=${props.playMode}`,
+        `https://api.rina.place/api/users/get/${props.userInfo.id}/stats`
+        + `?gamemode=${props.gamemode}&mode=${props.playMode}`,
+        fetcher
+    );
+
+    const { data: profileHistory, isLoading: isProfileHistoryLoading } = useSWR<ProfileHistory[]>(
+        `https://api.rina.place/api/users/history/${props.userInfo.id}`
+        + `?graph=rank&gamemode=${props.gamemode}&mode=${props.playMode}`,
         fetcher
     );
 
@@ -50,6 +62,7 @@ export default function UserStats(props: {
         noData: {
             text: "No profile history of user :(",
             style: {
+                fontFamily: "Exo 2",
                 fontSize: "1rem",
                 color: "hsl(240 4.88% 83.92%)"
             }
@@ -61,7 +74,7 @@ export default function UserStats(props: {
             show: false
         },
         title: {
-            text: `Performance points`,
+            text: "Global rank",
             align: "left",
             style: {
                 fontFamily: "Exo 2",
@@ -71,7 +84,7 @@ export default function UserStats(props: {
             }
         },
         subtitle: {
-            text: isLoading ? "loading" : `${data?.pp.toLocaleString("en-US")}pp`,
+            text: isLoading ? "loading" : `#${data?.rank.global.toLocaleString("en-US")}`,
             align: "left",
             offsetY: 15,
             style: {
@@ -120,7 +133,7 @@ export default function UserStats(props: {
                     <span
                         class="bg-content3/60 p-2 shadow-none"
                     >
-                    <b>${series[seriesIndex][dataPointIndex]}pp</b> ${days > 1 ? `at ${days - 1} days ago` : "today"}
+                    <b>#${series[seriesIndex][dataPointIndex]}</b> ${days > 1 ? `at ${days - 1} days ago` : "today"}
                     </span >
                     `);
             },
@@ -142,16 +155,25 @@ export default function UserStats(props: {
             </CardHeader>
             <CardBody className="bg-content3/40 p-4">
                 {isLoading ? <Spinner color="default" /> : (
-                    <div className="sm:flex flex-grow justify-between">
+                    <div className="sm:flex justify-between">
                         <div className="flex flex-col w-full">
                             <div className="h-200">
-                                <Chart
-                                    options={options}
-                                    series={[{ name: "Performance points", data: [1, 2, 3, 4, 5, 6, 7, 12, 59, 102, 592] }]}
-                                    type="line"
-                                    height={200}
-                                    width="100%"
-                                />
+                                {isProfileHistoryLoading ? null : (
+                                    <Chart
+                                        options={options}
+                                        series={
+                                            [
+                                                {
+                                                    name: "Performance points",
+                                                    data: profileHistory?.map(history => history.value) || []
+                                                }
+                                            ]
+                                        }
+                                        type="line"
+                                        height={200}
+                                        width="100%"
+                                    />
+                                )}
                             </div>
                             <div className="flex gap-x-4 flex-wrap">
                                 <span className="text-default-600 flex gap-x-1">
@@ -170,11 +192,14 @@ export default function UserStats(props: {
                                         {timeAgo.format(lastSeenDate)}
                                     </Tooltip>
                                 </span>
-                                <span className="text-default-600"><b>Plays with</b> {getPlaystyles(props.userInfo.playstyles).join(", ")}</span>
+                                <span className="text-default-600 flex gap-x-1">
+                                    <b>Plays with</b>
+                                    {getPlaystyles(props.userInfo.playstyles).join(", ") || "nothing"}
+                                </span>
                             </div>
                         </div>
-                        <Divider orientation="vertical" className="mx-8 hidden sm:block" />
-                        <div className="min-w-[250px] content-center">
+                        <Divider orientation="vertical" className="mx-8 -sm:hidden" />
+                        <div className="min-w-[300px] content-center">
                             <div className="flex justify-between">
                                 <span className="text-default-600 mr-6">Global rank</span>
                                 <span>#{data.rank.global}</span>
@@ -183,7 +208,8 @@ export default function UserStats(props: {
                                     Country rank
                                     <span
                                         className={
-                                            `ml-2 flag rounded-md flag-xs flag-country-${props.userInfo.country.toLowerCase()}`
+                                            "ml-2 flag rounded-md flag-xs" +
+                                            `flag-country-${props.userInfo.country.toLowerCase()}`
                                         }
                                     /></span>
                                 <span>#{data.rank.country}</span>

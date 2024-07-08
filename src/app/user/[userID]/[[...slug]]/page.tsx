@@ -1,10 +1,9 @@
 import { gamemodeToNum, numToGamemode, numToPlaymode, playModeToNum } from "@/utils/modes";
-import { Button, Card, CardBody, CardFooter, CardHeader, Chip, Tooltip } from "@nextui-org/react";
-import Image from "next/image";
+import { Button, Card, CardFooter, Chip, Tooltip } from "@nextui-org/react";
 import Link from "next/link";
 import UserStats from "./components/stats";
 import { ReactNode } from "react";
-import { FaCode, FaItunesNote, FaTrophy, FaUserCheck, FaFaceAngry } from "react-icons/fa6";
+import { FaCode, FaUserCheck, FaFaceAngry } from "react-icons/fa6";
 import { SiStaffbase } from "react-icons/si";
 import RecentActivity from "./components/recent";
 import Scores from "./components/scores";
@@ -15,7 +14,8 @@ import { options } from "@/app/api/auth/[...nextauth]/options";
 import FriendButton from "./components/friend";
 import { Privileges } from "@/utils/privileges";
 
-import DefaultAvatar from "../../../../../public/images/default-avatar.png";
+import Container from "@/app/components/container";
+import Achievements from "./components/achievements";
 
 function ensureCorrectQuery(slug: Array<string> | undefined, preferred_gamemode: string, preferred_mode: string) {
     if (slug == undefined) {
@@ -46,8 +46,8 @@ export default async function Page({ params }: { params: { userID: number; slug:
     const resp = await fetch(`https://api.rina.place/api/users/get/${params.userID}`, { next: { revalidate: 10 } });
     const user: UserProfileData = await resp.json();
 
-    if (user?.error || user?.detail) {
-        throw new Error(user.error || JSON.stringify(user.detail));
+    if (user?.error) {
+        throw new Error(user.error);
     }
 
     const { gamemode, playmode } = ensureCorrectQuery(
@@ -97,7 +97,7 @@ export default async function Page({ params }: { params: { userID: number; slug:
     };
 
     if (!(user.privileges & Privileges.VERIFIED) && !session?.user.is_admin) {
-        return <>user not found</>;
+        throw new Error("User has done something unacceptable :(");
     }
 
     return (
@@ -107,7 +107,7 @@ export default async function Page({ params }: { params: { userID: number; slug:
                     {user.username} is restricted!
                 </div>
             ) : null}
-            <div className="max-w-[1127px] mx-auto container-shadow">
+            <Container>
                 <div className="w-full bg-content1 rounded-t-lg">
                     <div className="flex flex-grow justify-between px-8 p-2">
                         <div className="flex gap-2">
@@ -231,30 +231,13 @@ export default async function Page({ params }: { params: { userID: number; slug:
                         userID={params.userID}
                         gamemode={gamemodeToNum(gamemode)}
                         playMode={playModeToNum(playmode)} />
-                    <Card shadow="none" id="beatmaps" radius="sm">
-                        <CardHeader className="bg-content2">
-                            <div className="flex items-center gap-4 text-xl">
-                                <FaItunesNote height={32} width={32} />
-                                beatmaps
-                            </div>
-                        </CardHeader>
-                        <CardBody className="bg-content3/80">
-                            general information .... pp graph blah blah blah yatta yatta yattaa
-                        </CardBody>
-                    </Card>
-                    <Card shadow="none" id="achievements" radius="sm">
-                        <CardHeader className="bg-content2">
-                            <div className="flex items-center gap-4 text-xl">
-                                <FaTrophy height={32} width={32} />
-                                achievements
-                            </div>
-                        </CardHeader>
-                        <CardBody className="bg-content3/80">
-                            general information .... pp graph blah blah blah yatta yatta yattaa
-                        </CardBody>
-                    </Card>
+                    <Achievements
+                        userInfo={user}
+                        session={session}
+                        gamemode={gamemodeToNum(gamemode)}
+                        playMode={playModeToNum(playmode)} />
                 </div>
-            </div >
+            </Container >
         </>
     );
 }

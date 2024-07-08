@@ -49,7 +49,7 @@ export default function Navbar() {
     const [isMenuOpen, setIsMenuOpen] = React.useState(false);
 
     return (
-        <div className="bg-content1 mb-8 border-divider border-b mt-0 px-4 sm:px-0">
+        <div className="bg-content1 border-divider border-b mt-0 -sm:px-4">
             <NextUINavbar onMenuOpenChange={setIsMenuOpen} maxWidth={"full"} classNames={{
                 base: "max-w-[1127px] mx-auto bg-content1",
                 wrapper: "p-0",
@@ -58,7 +58,7 @@ export default function Navbar() {
                     aria-label={isMenuOpen ? "Close menu" : "Open menu"}
                     className="sm:hidden"
                 />
-                <NavbarContent className="hidden sm:flex gap-4" justify="start">
+                <NavbarContent className="-sm:hidden gap-4" justify="start">
                     <NavbarItemWrapper title="homepage" href="/" />
                     <NavbarItemWrapper title="leaderboard" href="/leaderboard/osu/vanilla" />
                 </NavbarContent>

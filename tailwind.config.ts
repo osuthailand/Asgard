@@ -23,8 +23,15 @@ const config: Config = {
     plugins: [
         nextui({
             defaultTheme: "dark",
+            layout: {
+                lineHeight: {
+                    tiny: "1",
+                    small: "1",
+                    medium: "1",
+                    large: "1",
+                }
+            },
             themes: {
-                
                 dark: {
                     colors: {
                         background: "#0c0c0e",

@@ -1,4 +1,42 @@
 /* eslint-disable indent */
+export const playModes = [
+    {
+        title: "osu!",
+        short: "std",
+        icon: "osu-diff mode-osu",
+        numeric: 0
+    },
+    {
+        title: "osu!taiko",
+        short: "taiko",
+        icon: "osu-diff mode-taiko",
+        numeric: 1
+    },
+    {
+        title: "osu!catch",
+        short: "catch",
+        icon: "osu-diff mode-catch",
+        numeric: 2
+    },
+    {
+        title: "osu!mania",
+        short: "mania",
+        icon: "osu-diff mode-mania",
+        numeric: 3
+    },
+];
+
+export const gamemodes = [
+    {
+        title: "vanilla",
+        numeric: 0
+    },
+    {
+        title: "relax",
+        numeric: 1
+    }
+];
+
 export function playModeToNum(playmode: string): number {
     switch (playmode) {
         case "osu":

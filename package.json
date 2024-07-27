@@ -18,6 +18,7 @@
         "@types/mdx": "^2.0.13",
         "apexcharts": "^3.49.1",
         "crypto-js": "^4.2.0",
+        "d3": "^7.9.0",
         "framer-motion": "^11.2.10",
         "javascript-time-ago": "^2.5.10",
         "jsonwebtoken": "^9.0.2",
@@ -36,10 +37,12 @@
         "react-timeago": "^7.2.0",
         "sharp": "^0.33.4",
         "swr": "^2.2.5",
+        "timeago.js": "^4.0.0-beta.3",
         "yarn": "^1.22.22"
     },
     "devDependencies": {
         "@types/crypto-js": "^4.2.2",
+        "@types/d3": "^7.4.3",
         "@types/jsonwebtoken": "^9.0.6",
         "@types/node": "^20",
         "@types/react": "^18",

@@ -84,7 +84,7 @@ export default function Leaderboard({
                 />
                 <CardFooter className="rounded-b-none absolute bottom-0 z-10 px-8">
                     <div className="flex flex-grow justify-between items-center">
-                        <div className="flex flex-grow gap-2">
+                        <div className="flex gap-2">
                             <LeaderboardButton
                                 href={"/leaderboard/" + params.playmode + "/vanilla"}
                                 slug={params.gamemode}
@@ -96,7 +96,7 @@ export default function Leaderboard({
                                 activeState="relax"
                                 title="relax" />
                         </div>
-                        <div className="flex gap-2">
+                        <div className="flex justify-end gap-2">
                             <LeaderboardButton
                                 href={"/leaderboard/osu/" + params.gamemode}
                                 slug={params.playmode}
@@ -183,7 +183,7 @@ export default function Leaderboard({
                     }) => (
                         <TableRow key={item.username}>
                             <TableCell className="bg-content3/50 rounded-l-md text-center">#{item.rank}</TableCell>
-                            <TableCell className="flex flex-grow gap-2 items-center ">
+                            <TableCell className="flex gap-2 items-center ">
                                 <span className={"flag flag-country-" + item.country.toLowerCase()} />
                                 <Link className="hover:underline" href={"/user/" + item.id}>{item.username}</Link>
                             </TableCell>

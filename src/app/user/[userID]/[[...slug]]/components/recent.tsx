@@ -34,7 +34,7 @@ export default function RecentActivity(props: {
                     <div className="flex flex-col gap-y-2">
                         {data?.length == 0 ? "This player haven't done anything notable in a while..." : (
                             data.map(act => (
-                                <div key={act.id} className="flex flex-grow justify-between">
+                                <div key={act.id} className="flex justify-between">
                                     <span>
                                         <Link className="text-primary-700" href={"/user/" + props.userID}>
                                             {props.username}&nbsp;

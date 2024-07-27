@@ -16,6 +16,7 @@ import { Privileges } from "@/utils/privileges";
 
 import Container from "@/app/components/container";
 import Achievements from "./components/achievements";
+import Image from "next/image";
 
 function ensureCorrectQuery(slug: Array<string> | undefined, preferred_gamemode: string, preferred_mode: string) {
     if (slug == undefined) {
@@ -46,8 +47,8 @@ export default async function Page({ params }: { params: { userID: number; slug:
     const resp = await fetch(`https://api.rina.place/api/users/get/${params.userID}`, { next: { revalidate: 10 } });
     const user: UserProfileData = await resp.json();
 
-    if (user?.error) {
-        throw new Error(user.error);
+    if (user.error || user.detail) {
+        throw new Error(user.error || user.detail);
     }
 
     const { gamemode, playmode } = ensureCorrectQuery(
@@ -109,7 +110,7 @@ export default async function Page({ params }: { params: { userID: number; slug:
             ) : null}
             <Container>
                 <div className="w-full bg-content1 rounded-t-lg">
-                    <div className="flex flex-grow justify-between px-8 p-2">
+                    <div className="flex justify-between px-8 p-2">
                         <div className="flex gap-2">
                             <ModeButton
                                 href={`/user/${user.id}/vanilla/${playmode}`}
@@ -132,7 +133,7 @@ export default async function Page({ params }: { params: { userID: number; slug:
                 </div>
                 <Card className="rounded-none shadow-none">
                     <div className="min-h-[250px] overflow-visible z-0 p-0">
-                        <img
+                        <Image
                             height={250}
                             width={1127}
                             alt=""
@@ -141,7 +142,7 @@ export default async function Page({ params }: { params: { userID: number; slug:
                         />
                     </div>
                     <CardFooter className="rounded-b-none p-6 ">
-                        <img
+                        <Image
                             alt=""
                             src={"https://a.rina.place/" + user.id}
                             height={140}
@@ -200,7 +201,7 @@ export default async function Page({ params }: { params: { userID: number; slug:
                     <BadgeChip badge="Staff" icon={<SiStaffbase size={18} />} />
                     <BadgeChip badge="don't @ me" icon={<FaFaceAngry size={18} />} />
                 </div>
-                <div className="panel-bg sticky gap-5 z-20 top-0 w-full flex justify-center">
+                <div className="panel-bg sticky gap-5 z-20 top-[-1px] w-full flex justify-center">
                     <Link href="#general" className="p-4">
                         general
                     </Link>
@@ -209,9 +210,6 @@ export default async function Page({ params }: { params: { userID: number; slug:
                     </Link>
                     <Link href="#ranks" className="p-4">
                         ranks
-                    </Link>
-                    <Link href="#beatmaps" className="p-4">
-                        beatmaps
                     </Link>
                     <Link href="#achievements" className="p-4">
                         achievements

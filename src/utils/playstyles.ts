@@ -8,11 +8,11 @@ export enum Playstyles {
 }
 
 export const getPlaystyles = (bitwise: Playstyles): string[] => {
-    var playstyles: string[] = []
+    var playstyles: string[] = [];
     forIn(Playstyles, (key, value) => {
         if (isNaN(Number(key)) && Number(value) & bitwise) {
-            playstyles.push((key as unknown as string).toLowerCase())
+            playstyles.push((key as unknown as string).toLowerCase());
         }
-    })
-    return playstyles
-}
+    });
+    return playstyles;
+};

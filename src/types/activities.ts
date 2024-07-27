@@ -1,4 +1,7 @@
 export type RecentActivities = {
+    detail?: any,
+    error?: string,
+
     id: number,
     timestamp: number,
 

@@ -2,7 +2,7 @@ import { getServerSession } from "next-auth";
 import { options } from "./api/auth/[...nextauth]/options";
 import Container from "./components/container";
 
-import { Button, Card, CardHeader } from "@nextui-org/react";
+import { Button, Card, CardBody, CardHeader } from "@nextui-org/react";
 import Link from "next/link";
 import Image from "next/image";
 
@@ -13,7 +13,29 @@ export default async function Home() {
     const stats = stats_resp.status === 200 ? await stats_resp.json() : null;
 
     if (session) {
-        return <h1>not done</h1>;
+        return (
+            <Container>
+                <Card className="rounded-md" shadow="none">
+                    <div className="flex justify-between py-4 px-16 items-center">
+                        <div>
+                            <p className="text-xl text-default-600">welcome back,</p>
+                            <p className="font-bold text-primary-600 text-[2rem]">{session.user.username}</p>
+                        </div>
+                        <div className="flex space-x-12">
+                            <div className="block text-xl">
+                                <p className="text-default-600 mb-1">online</p>
+                                <p className="font-bold text-green-400 text-[2rem]">{stats.online_players || 0}</p>
+                            </div>
+                            <div className="block text-xl">
+                                <p className="text-default-600 mb-1">rooms</p>
+                                <p className="font-bold text-green-400 text-[2rem]">{stats.multiplayer_rooms || 0}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <CardBody className="bg-content3/40 px-8">hej</CardBody>
+                </Card>
+            </Container>
+        );
     }
 
     return (
@@ -71,7 +93,6 @@ export default async function Home() {
                 </Card>
             </Container>
             {stats ? (
-
                 <Container>
                     <div
                         className={

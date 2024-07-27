@@ -1,6 +1,6 @@
 export type UserProfileData = {
-    error?: string;
-    detail?: any;
+    detail?: any,
+    error?: string,
 
     username: string,
     id: number,

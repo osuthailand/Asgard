@@ -2,7 +2,6 @@ import { options } from "@/app/api/auth/[...nextauth]/options";
 import Container from "@/app/components/container";
 import WrappedTimeago from "@/app/components/timeago";
 import { ScoreType } from "@/types/score";
-import { Country } from "@/utils/country";
 import { Privileges } from "@/utils/privileges";
 import { Card, CardHeader } from "@nextui-org/react";
 import { getServerSession } from "next-auth";
@@ -47,10 +46,15 @@ export default async function Page({ params }: {
             </Card>
             {session?.user.id === score.user_id && session!.user.privileges & Privileges.SUPPORTER ? (
                 <>
-                    <div className="p-8 text-xl">replay watched by {score.viewers ? `${score.viewers.length} user(s)` : "no one :("}</div>
+                    <div className="p-8 text-xl">
+                        replay watched by {score.viewers ? `${score.viewers.length} user(s)` : "no one :("}
+                    </div>
                     <div className="rounded-b-md bg-content2 p-8 grid grid-cols-3 gap-4">
                         {score.viewers?.map(viewer => (
-                            <div className="flex h-[100px] items-center rounded-md relative container-shadow">
+                            <div
+                                key={viewer.user_id}
+                                className="flex h-[100px] items-center rounded-md relative container-shadow"
+                            >
                                 <img
                                     alt={"pooppy head"}
                                     src={"https://a.rina.place/" + viewer.user_id}
@@ -71,15 +75,21 @@ export default async function Page({ params }: {
                                         }
                                     />
                                     <div className="flex-col">
-                                        <Link href={"/user/" + viewer.user_id} className="flex gap-x-1 items-center text-[20px] font-semibold">
+                                        <Link
+                                            href={"/user/" + viewer.user_id}
+                                            className="flex gap-x-1 items-center text-[20px] font-semibold"
+                                        >
                                             <span
                                                 className={
-                                                    `flag rounded-md flag-xs flag-country-${viewer.country.toLowerCase()}`
+                                                    "flag rounded-md flag-xs" +
+                                                    `flag-country-${viewer.country.toLowerCase()}`
                                                 }
                                             />
                                             {viewer.username}
                                         </Link>
-                                        <span className="text-default-700 text-sm">watched <WrappedTimeago timestamp={viewer.timestamp} /></span>
+                                        <span className="text-default-700 text-sm">
+                                            watched <WrappedTimeago timestamp={viewer.timestamp} />
+                                        </span>
                                     </div>
                                 </div>
                             </div>

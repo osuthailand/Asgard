@@ -71,7 +71,8 @@ export default function UserStats(props: {
             show: false
         },
         yaxis: {
-            show: false
+            show: false,
+            reversed: true,
         },
         title: {
             text: "Global rank",

@@ -88,11 +88,14 @@ function IndividualScorePanel(props: {
                                 </div>
                                 <div className="flex w-full justify-between items-center">
                                     <div className="pl-2 py-2 max-w-[600px]">
-                                        <p className="text-[15px] truncate">
+                                        <Link
+                                            href={`/b/${score.map_id}`}
+                                            className="text-[15px] truncate hover:underline"
+                                        >
                                             {score.artist} - {score.title}&nbsp;
-                                        </p>
+                                        </Link>
                                         <div className="flex text-[13px]">
-                                            <span className="text-default-700 dot-next">{score.version}</span>
+                                            <span className="text-default-700 mr-2">{score.version}</span>
                                             <TimeAgo
                                                 date={score.submitted * 1000}
                                                 className="text-default-500"

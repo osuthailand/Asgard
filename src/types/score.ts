@@ -1,4 +1,5 @@
 export type ScoreType = {
+    detail?: any;
     error?: string;
 
     id: number;

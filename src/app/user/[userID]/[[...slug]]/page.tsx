@@ -1,12 +1,10 @@
 import { gamemodeToNum, numToGamemode, numToPlaymode, playModeToNum } from "@/utils/modes";
 import { Button, Card, CardFooter, Chip, Tooltip } from "@nextui-org/react";
 import Link from "next/link";
-import UserStats from "./components/stats";
 import { ReactNode } from "react";
 import { FaCode, FaUserCheck, FaFaceAngry } from "react-icons/fa6";
 import { SiStaffbase } from "react-icons/si";
 import RecentActivity from "./components/recent";
-import Scores from "./components/scores";
 import { UserProfileData } from "@/types/profile";
 import { Country } from "@/utils/country";
 import { getServerSession } from "next-auth";
@@ -17,6 +15,8 @@ import { Privileges } from "@/utils/privileges";
 import Container from "@/app/components/container";
 import Achievements from "./components/achievements";
 import Image from "next/image";
+import UserStats from "./components/stats";
+import Scores from "./components/scores";
 
 function ensureCorrectQuery(slug: Array<string> | undefined, preferred_gamemode: string, preferred_mode: string) {
     if (slug == undefined) {

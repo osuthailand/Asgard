@@ -62,7 +62,7 @@ export default async function BeatmapPage({
                 </div>
                 <div className="bg-content1 rounded-b-md">
                     <div className="md:px-12 md:py-4 -md:block flex justify-between items-center">
-                        <div className="-md:px-8 -md:py-4 flex flex-col -md:items-center">
+                        <div className="-md:px-8 -md:py-4 pr-8 flex flex-col -md:items-center">
                             <div className="-md:text-center">
                                 <span className="text-xl leading-none">{mapInfo.title}</span>
                                 <span className="text-md">&nbsp;by {mapInfo.artist}</span>
@@ -100,7 +100,7 @@ export default async function BeatmapPage({
                                 <Button
                                     as={Link}
                                     className="px-5 h-9 rounded-full bg-blue-400/60 shadow-md hover:bg-blue-400/90"
-                                    href=""
+                                    href={`https://catboy.best/d/${mapInfo.set_id}`}
                                     endContent={<FaDownload />}
                                 >
                                     download
@@ -108,7 +108,7 @@ export default async function BeatmapPage({
                                 <Button
                                     as={Link}
                                     className="px-5 h-9 rounded-full bg-blue-400/60 shadow-md hover:bg-blue-400/90"
-                                    href="osu://..."
+                                    href={`osu://dl/${mapInfo.set_id}`}
                                     endContent={<FaDownload />}
                                 >
                                     osu!direct

@@ -1,6 +1,6 @@
+/* eslint-disable no-unused-vars */
 import { Beatmap } from "@/types/beatmap";
 import * as d3 from "d3";
-import { register } from "timeago.js";
 
 export function getFullTitle(beatmap: Beatmap): String {
     return `${beatmap.artist} - ${beatmap.title} (${beatmap.version})`;

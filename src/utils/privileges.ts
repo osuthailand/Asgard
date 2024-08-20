@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 export enum Privileges {
     BANNED = 1 << 0,
 

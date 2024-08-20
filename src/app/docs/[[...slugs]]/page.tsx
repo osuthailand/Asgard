@@ -17,7 +17,7 @@ export default async function Page({ params }: { params: { slugs: string[]; }; }
     return (
         <>
             {data.map((e: any) => (
-                <a href={`/docs/${e.url.replace(".", "/")}`}>{e.url}</a>
+                <a key={e.url} href={`/docs/${e.url.replace(".", "/")}`}>{e.url}</a>
             ))}
         </>
     );

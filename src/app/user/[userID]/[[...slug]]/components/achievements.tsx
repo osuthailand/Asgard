@@ -5,7 +5,6 @@ import { UserProfileData } from "@/types/profile";
 import { Card, CardBody, CardHeader, Spinner } from "@nextui-org/react";
 import { Session } from "next-auth";
 import Image from "next/image";
-import { userInfo } from "os";
 import { FaTrophy } from "react-icons/fa6";
 import useSWR from "swr";
 

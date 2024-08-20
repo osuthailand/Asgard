@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 
 import { Beatmap } from "@/types/beatmap";
@@ -7,6 +8,7 @@ import { gamemodes, playModes } from "@/utils/modes";
 import { getModCombinationNames } from "@/utils/mods";
 import { Button, Table, TableBody, TableCell, TableColumn, TableHeader, TableRow } from "@nextui-org/react";
 import { Session } from "next-auth";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import { format, register } from "timeago.js";
 
@@ -31,7 +33,7 @@ const typeOfs = [
 
 export function BeatmapLeaderboard(props: {
     mapInfo: Beatmap,
-    session: Session | null
+    session: Session | null;
 }): JSX.Element {
     const [typeOf, setTypeOf] = useState("overall");
     const [playMode, setPlayMode] = useState(props.mapInfo.mode);
@@ -174,7 +176,6 @@ export function BeatmapLeaderboard(props: {
                     items={data ?? []}
                     isLoading={isLoading}
                     loadingContent={"Loading..."}
-                // emptyContent={"No scores to display."}
                 >
                     {data.map((item, index) => (
                         <TableRow key={item.id}>
@@ -185,7 +186,11 @@ export function BeatmapLeaderboard(props: {
                             <TableCell>
                                 <span className={"flag flag-country-" + item.country.toLowerCase()} />
                             </TableCell>
-                            <TableCell>{item.username}</TableCell>
+                            <TableCell>
+                                <Link href={`/user/${item.user_id}`} className="hover:underline">
+                                    {item.username}
+                                </Link>
+                            </TableCell>
                             <TableCell className="font-bold">{item.pp.toFixed(0)}</TableCell>
                             <TableCell
                                 className={

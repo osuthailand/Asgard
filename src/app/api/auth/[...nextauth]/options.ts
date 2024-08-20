@@ -1,8 +1,9 @@
+/* eslint-disable no-unused-vars */
 import CredentialsProvider from "next-auth/providers/credentials";
 
 import jwt from "jsonwebtoken";
 import { MD5 } from "crypto-js";
-import { NextAuthOptions, Session, User } from "next-auth";
+import { NextAuthOptions, Session } from "next-auth";
 import { JWT } from "next-auth/jwt";
 
 type JWTDecodedPayload = {
@@ -25,7 +26,7 @@ export const options: NextAuthOptions = {
             return token;
         },
         session({ session, token }: { session: Session, token: JWT }) {
-            session.user = {...token}
+            session.user = {...token};
             return session;
         }
     },

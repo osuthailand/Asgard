@@ -52,7 +52,7 @@ function Search(props: {
             fetch("https://api.rina.place/api/users/search?query=" + event.target.value)
                 .then(response => response.json())
                 .then(data => { console.log(data); setUsers(data); setIsSearching(false); })
-                .catch(error => alert("Something went wrong while searching, contact a developer about this."));
+                .catch(() => alert("Something went wrong while searching, contact a developer about this."));
         }, 500);
     };
 
@@ -136,135 +136,157 @@ export default function Navbar() {
     const [isMenuOpen, setIsMenuOpen] = React.useState(false);
 
     return (
-        <>
-
-            <div className="bg-content1 border-divider border-b mt-0 -sm:px-4">
-                <NextUINavbar onMenuOpenChange={setIsMenuOpen} maxWidth={"full"} classNames={{
-                    base: "max-w-[1127px] mx-auto bg-content1",
-                    wrapper: "p-0",
-                }}>
-                    <NavbarMenuToggle
-                        aria-label={isMenuOpen ? "Close menu" : "Open menu"}
-                        className="sm:hidden"
-                    />
-                    <NavbarContent className="-sm:hidden gap-4" justify="start">
-                        <NavbarItemWrapper title="homepage" href="/" />
-                        <NavbarItemWrapper title="leaderboard" href="/leaderboard/osu/vanilla" />
-                    </NavbarContent>
-                    <NavbarContent justify="end">
-                        <Button
-                            onPress={onOpen}
-                            isIconOnly
-                            variant="flat"
-                            disableRipple
-                            radius="full"
-                        >
-                            <FaSearch />
-                        </Button>
-                        <Modal
-                            isOpen={isOpen}
-                            onOpenChange={onOpenChange}
-                            placement="top-center"
-                            hideCloseButton
-                            shouldBlockScroll={false}
-                            classNames={{
-                                base: "max-w-[1127px] container-shadow",
-                                wrapper: "w-full"
-                            }}
-                        >
-                            <ModalContent>
-                                {(onClose) => <Search onClose={onClose} />}
-                            </ModalContent>
-                        </Modal >
-                        <Dropdown classNames={{
-                            base: !session ? "w-[350px]" : "",
-                            content: !session ? "p-0" : ""
-                        }}>
+        <div className="bg-content1 border-divider border-b mt-0 -sm:px-4">
+            <NextUINavbar onMenuOpenChange={setIsMenuOpen} maxWidth={"full"} classNames={{
+                base: "max-w-[1127px] mx-auto bg-content1",
+                wrapper: "p-0",
+            }}>
+                <NavbarMenuToggle
+                    aria-label={isMenuOpen ? "Close menu" : "Open menu"}
+                    className="sm:hidden"
+                />
+                <NavbarContent className="-sm:hidden gap-4" justify="start">
+                    <NavbarItemWrapper title="homepage" href="/" />
+                    <NavbarItemWrapper title="leaderboard" href="/leaderboard/osu/vanilla" />
+                    <Dropdown>
+                        <NavbarItem>
                             <DropdownTrigger>
-                                <Avatar
-                                    as="button"
-                                    src={"https://a.rina.place/" + session?.user.id}
-                                    alt="Login or sign up"
-                                    className="transition-transform"
-                                />
-                            </DropdownTrigger>
-                            {!session ? (
-                                <DropdownMenu
-                                    aria-label="Profile Actions"
-                                    variant="flat"
-                                    className="p-0"
+                                <Button
+                                    disableRipple
+                                    className={"relative text-default-800 p-0 " +
+                                        "bg-transparent data-[hover=true]:bg-transparent"}
                                 >
-                                    <DropdownItem isReadOnly>
-                                        <Login />
-                                    </DropdownItem>
-                                    <DropdownItem
-                                        isReadOnly
-                                        className="bg-content2 rounded-t-none px-6 py-3.5 no-truncation"
-                                    >
-                                        <h4 className="text-large font-semibold mb-2">No account?</h4>
-                                        <p className="text-default-500 mb-4">
-                                            Go ahead and sign up to quickly make an account and join the server
-                                            with the rest of the players!
-                                        </p>
-                                        <div className="flex justify-end">
-                                            <Button
-                                                type="submit"
-                                                color="primary"
-                                                isDisabled
-                                                className="w-[8rem] flex justify-between"
-                                            >
-                                                Sign up!
-                                                <IconUserPlus />
-                                            </Button>
-                                        </div>
-                                    </DropdownItem>
-                                </DropdownMenu>
-                            ) : (
-                                <DropdownMenu aria-label="Profile Actions" variant="flat">
-                                    <DropdownSection aria-label="Profile" showDivider>
-                                        <DropdownItem href={"/user/" + session.user.id}>
-                                            My profile
-                                        </DropdownItem>
-                                        <DropdownItem href="/friends">
-                                            Friends
-                                        </DropdownItem>
-                                        <DropdownItem href="/settings">
-                                            Settings
-                                        </DropdownItem>
-                                    </DropdownSection>
-                                    <DropdownSection aria-label="Preferences">
-                                        <DropdownItem onClick={() => signOut()}>
-                                            Sign out
-                                        </DropdownItem>
-                                    </DropdownSection>
-                                </DropdownMenu>
-                            )}
-                        </Dropdown>
-                    </NavbarContent>
-                    <NavbarMenu>
-                        <NavbarMenuItem>
-                            <NextUILink
-                                as={Link}
-                                className="w-full"
-                                href="/"
-                                size="lg"
+                                    community
+                                </Button>
+                            </DropdownTrigger>
+                        </NavbarItem>
+                        <DropdownMenu>
+                            <DropdownItem href="/community/clans">
+                                clans
+                            </DropdownItem>
+                            <DropdownItem href="/community/plays">
+                                top plays
+                            </DropdownItem>
+                            <DropdownItem href="/docs">
+                                docs
+                            </DropdownItem>
+                        </DropdownMenu>
+                    </Dropdown>
+                </NavbarContent>
+                <NavbarContent justify="end">
+                    <Button
+                        onPress={onOpen}
+                        isIconOnly
+                        variant="flat"
+                        disableRipple
+                        radius="full"
+                    >
+                        <FaSearch />
+                    </Button>
+                    <Modal
+                        isOpen={isOpen}
+                        onOpenChange={onOpenChange}
+                        placement="top-center"
+                        hideCloseButton
+                        shouldBlockScroll={false}
+                        classNames={{
+                            base: "max-w-[1127px] container-shadow",
+                            wrapper: "w-full"
+                        }}
+                    >
+                        <ModalContent>
+                            {(onClose) => <Search onClose={onClose} />}
+                        </ModalContent>
+                    </Modal >
+                    <Dropdown classNames={{
+                        base: !session ? "w-[350px]" : "",
+                        content: !session ? "p-0" : ""
+                    }}>
+                        <DropdownTrigger>
+                            <Avatar
+                                as="button"
+                                src={"https://a.rina.place/" + session?.user.id}
+                                alt="Login or sign up"
+                                className="transition-transform"
+                            />
+                        </DropdownTrigger>
+                        {!session ? (
+                            <DropdownMenu
+                                aria-label="Profile Actions"
+                                variant="flat"
+                                className="p-0"
                             >
-                                home
-                            </NextUILink>
-                        </NavbarMenuItem>
-                        <NavbarMenuItem>
-                            <NextUILink
-                                as={Link}
-                                className="w-full"
-                                href="/leaderboard/osu/vanilla"
-                                size="lg"
-                            >
-                                leaderboard
-                            </NextUILink>
-                        </NavbarMenuItem>
-                    </NavbarMenu>
-                </NextUINavbar>
-            </div >
-        </>
+                                <DropdownItem isReadOnly>
+                                    <Login />
+                                </DropdownItem>
+                                <DropdownItem
+                                    isReadOnly
+                                    className="bg-content2 rounded-t-none px-6 py-3.5 no-truncation"
+                                >
+                                    <h4 className="text-large font-semibold mb-2">No account?</h4>
+                                    <p className="text-default-500 mb-4">
+                                        Go ahead and sign up to quickly make an account and join the server
+                                        with the rest of the players!
+                                    </p>
+                                    <div className="flex justify-end">
+                                        <Button
+                                            type="submit"
+                                            color="primary"
+                                            isDisabled
+                                            className="w-[8rem] flex justify-between"
+                                        >
+                                            Sign up!
+                                            <IconUserPlus />
+                                        </Button>
+                                    </div>
+                                </DropdownItem>
+                            </DropdownMenu>
+                        ) : (
+                            <DropdownMenu aria-label="Profile Actions" variant="flat">
+                                <DropdownSection aria-label="Profile" showDivider>
+                                    <DropdownItem href={"/user/" + session.user.id}>
+                                        My profile
+                                    </DropdownItem>
+                                    <DropdownItem href="/friends">
+                                        Friends
+                                    </DropdownItem>
+                                    <DropdownItem href="/settings">
+                                        Settings
+                                    </DropdownItem>
+                                </DropdownSection>
+                                <DropdownSection aria-label="Preferences">
+                                    <DropdownItem onClick={() => signOut()}>
+                                        Sign out
+                                    </DropdownItem>
+                                </DropdownSection>
+                            </DropdownMenu>
+                        )}
+                    </Dropdown>
+                </NavbarContent>
+                <NavbarMenu>
+                    <NavbarMenuItem>
+                        <NextUILink
+                            as={Link}
+                            className="w-full"
+                            href="/"
+                            size="lg"
+                        >
+                            home
+                        </NextUILink>
+                    </NavbarMenuItem>
+                    <NavbarMenuItem>
+                        <NextUILink
+                            as={Link}
+                            className="w-full"
+                            href="/leaderboard/osu/vanilla"
+                            size="lg"
+                        >
+                            leaderboard
+                        </NextUILink>
+                    </NavbarMenuItem>
+
+                </NavbarMenu>
+            </NextUINavbar>
+        </div >
     );
 };

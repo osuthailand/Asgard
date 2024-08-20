@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 
 import {
@@ -135,9 +136,6 @@ function IndividualScorePanel(props: {
                                                     </Button>
                                                 </DropdownTrigger>
                                                 <DropdownMenu disabledKeys={score.rank == "F" ? ["replay"] : []}>
-                                                    <DropdownItem key="details" as={Link} href={`/score/${score.id}`}>
-                                                        view details
-                                                    </DropdownItem>
                                                     <DropdownItem
                                                         key={"replay"}
                                                         as={Link}

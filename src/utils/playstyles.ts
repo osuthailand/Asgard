@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { forIn } from "lodash";
 
 export enum Playstyles {

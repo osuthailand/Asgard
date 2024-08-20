@@ -128,7 +128,7 @@ export default function UserStats(props: {
             x: {
                 show: false
             },
-            custom: ({ series, seriesIndex, dataPointIndex, w }) => {
+            custom: ({ series, seriesIndex, dataPointIndex }) => {
                 const days = Math.abs(dataPointIndex - series[seriesIndex].length);
                 return (`
                     <span

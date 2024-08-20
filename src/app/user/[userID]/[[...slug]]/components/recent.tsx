@@ -17,7 +17,8 @@ export default function RecentActivity(props: {
     gamemode: number;
 }) {
     const { data, isLoading }: { data: RecentActivities[]; isLoading: boolean; } = useSWR(
-        `https://api.rina.place/api/users/get/${props.userID}/activities?gamemode=${props.gamemode}&mode=${props.playMode}`,
+        `https://api.rina.place/api/users/get/${props.userID}/activities?` +
+        `gamemode=${props.gamemode}&mode=${props.playMode}`,
         fetcher
     );
 

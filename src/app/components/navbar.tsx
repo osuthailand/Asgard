@@ -230,9 +230,10 @@ export default function Navbar() {
                                     </p>
                                     <div className="flex justify-end">
                                         <Button
-                                            type="submit"
+                                            //type="submit"
+                                            as={Link}
                                             color="primary"
-                                            isDisabled
+                                            href="/signup"
                                             className="w-[8rem] flex justify-between"
                                         >
                                             Sign up!

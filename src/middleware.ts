@@ -7,6 +7,11 @@ export async function middleware(request: NextRequest) {
     if (pathname.startsWith("/b/")) {
         const mapID = request.nextUrl.pathname.slice(3);
 
+        // Validate mapID to ensure it matches the expected format (e.g., numeric)
+        if (!/^\d+$/.test(mapID)) {
+            throw Error("Invalid mapID format");
+        }
+
         const response = await fetch(
             `https://api.rina.place/api/beatmap/map/${mapID}`
         );

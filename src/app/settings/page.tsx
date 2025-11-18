@@ -47,8 +47,8 @@ export default function Page() {
 
     useEffect(() => {
         if (session?.user.id) {
-            setAvatarPreview(`https://a.rina.place/${session.user.id}?t=${Date.now()}`);
-            setBannerPreview(`https://b.rina.place/${session.user.id}?t=${Date.now()}`);
+            setAvatarPreview(`https://a.aoba.in.th/${session.user.id}?t=${Date.now()}`);
+            setBannerPreview(`https://assets.aoba.in.th/banners/${session.user.id}?t=${Date.now()}`);
         }
     }, [session]);
 
@@ -89,7 +89,7 @@ export default function Page() {
                 setUploadStatus("Avatar uploaded successfully!");
                 setAvatarFile(null);
                 setTimeout(() => {
-                    setAvatarPreview(`https://a.rina.place/${session.user.id}?t=${Date.now()}`);
+                    setAvatarPreview(`https://a.aoba.in.th/${session.user.id}?t=${Date.now()}`);
                     setUploadStatus("");
                 }, 1500);
             } else {
@@ -121,7 +121,7 @@ export default function Page() {
                 setUploadStatus("Banner uploaded successfully!");
                 setBannerFile(null);
                 setTimeout(() => {
-                    setBannerPreview(`https://b.rina.place/${session.user.id}?t=${Date.now()}`);
+                    setBannerPreview(`https://assets.aoba.in.th/banners/${session.user.id}?t=${Date.now()}`);
                     setUploadStatus("");
                 }, 1500);
             } else {
@@ -148,7 +148,7 @@ export default function Page() {
             if (response.ok) {
                 setUploadStatus("Avatar reset successfully!");
                 setTimeout(() => {
-                    setAvatarPreview(`https://a.rina.place/${session.user.id}?t=${Date.now()}`);
+                    setAvatarPreview(`https://a.aoba.in.th/${session.user.id}?t=${Date.now()}`);
                     setUploadStatus("");
                 }, 1500);
             } else {
@@ -175,7 +175,7 @@ export default function Page() {
             if (response.ok) {
                 setUploadStatus("Banner reset successfully!");
                 setTimeout(() => {
-                    setBannerPreview(`https://b.rina.place/${session.user.id}?t=${Date.now()}`);
+                    setBannerPreview(`https://assets.aoba.in.th/banners/${session.user.id}?t=${Date.now()}`);
                     setUploadStatus("");
                 }, 1500);
             } else {

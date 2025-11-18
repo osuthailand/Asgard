@@ -138,7 +138,7 @@ export default async function Page({ params }: { params: { userID: number; slug:
                             width={1127}
                             alt=""
                             className="w-full absolute z-0 object-cover rounded-none h-[250px]"
-                            src={"https://b.rina.place/" + user.id}
+                            src={`https://assets.aoba.in.th/banners/${user.id}`}
                         />
                     </div>
                     <CardFooter className="rounded-b-none p-6 ">

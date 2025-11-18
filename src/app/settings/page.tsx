@@ -77,7 +77,7 @@ export default function Page() {
         setUploadStatus("Uploading avatar...");
 
         try {
-            const response = await fetch("https://api.rina.place/api/settings/avatar", {
+            const response = await fetch("https://api.aoba.in.th/api/settings/avatar", {
                 method: "POST",
                 headers: {
                     "Authorization": `Bearer ${session.user.accessToken}`,
@@ -109,7 +109,7 @@ export default function Page() {
         setUploadStatus("Uploading banner...");
 
         try {
-            const response = await fetch("https://api.rina.place/api/settings/banner", {
+            const response = await fetch("https://api.aoba.in.th/api/settings/banner", {
                 method: "POST",
                 headers: {
                     "Authorization": `Bearer ${session.user.accessToken}`,
@@ -138,7 +138,7 @@ export default function Page() {
         setUploadStatus("Resetting avatar...");
 
         try {
-            const response = await fetch("https://api.rina.place/api/settings/avatar", {
+            const response = await fetch("https://api.aoba.in.th/api/settings/avatar", {
                 method: "DELETE",
                 headers: {
                     "Authorization": `Bearer ${session.user.accessToken}`,
@@ -165,7 +165,7 @@ export default function Page() {
         setUploadStatus("Resetting banner...");
 
         try {
-            const response = await fetch("https://api.rina.place/api/settings/banner", {
+            const response = await fetch("https://api.aoba.in.th/api/settings/banner", {
                 method: "DELETE",
                 headers: {
                     "Authorization": `Bearer ${session.user.accessToken}`,

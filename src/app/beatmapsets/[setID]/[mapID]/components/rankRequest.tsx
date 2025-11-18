@@ -22,7 +22,7 @@ export function RankRequestButton({ setID }: { setID: number }) {
 
         try {
             const response = await fetch(
-                `https://api.rina.place/api/beatmap/rank-request/${setID}/status`,
+                `https://api.aoba.in.th/api/beatmap/rank-request/${setID}/status`,
                 {
                     headers: {
                         Authorization: `Bearer ${session.user.accessToken}`,
@@ -47,7 +47,7 @@ export function RankRequestButton({ setID }: { setID: number }) {
 
         try {
             const response = await fetch(
-                `https://api.rina.place/api/beatmap/rank-request/${setID}`,
+                `https://api.aoba.in.th/api/beatmap/rank-request/${setID}`,
                 {
                     method: "POST",
                     headers: {

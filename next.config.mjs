@@ -2,11 +2,11 @@
 const nextConfig = {
     images: {
         domains: [
-            "a.rina.place",
+            "a.aoba.in.th",
+            "assets.aoba.in.th",
             "b.ppy.sh",
             "a.ppy.sh",
-            "assets.ppy.sh",
-            "assets.rina.place"
+            "assets.ppy.sh"
         ],
     },
 };

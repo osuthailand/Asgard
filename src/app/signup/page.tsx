@@ -11,7 +11,7 @@ export default function Register() {
   const { register, handleSubmit, formState: { errors } } = useForm();
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
-  const [captchaToken, setCaptchaToken] = useState(null);
+  const [captchaToken, setCaptchaToken] = useState<string | null>(null);
   const [isRegistered, setIsRegistered] = useState(false); // Track registration success
 
   // Get query parameters from the URL
@@ -30,7 +30,7 @@ export default function Register() {
     }
   };
 
-  const onSubmit = async (data) => {
+  const onSubmit = async (data: any) => {
     if (!captchaToken) {
       setMessage("Please complete the captcha.");
       return;
@@ -111,7 +111,7 @@ export default function Register() {
                       defaultValue={username || ""} // Autofill username
                       className="w-full p-2 rounded-lg border border-default-200 focus:outline-none focus:ring-2 focus:ring-blue-500"
                     />
-                    {errors.username && <p className="text-red-500 text-sm mt-1">{errors.username.message}</p>}
+                    {errors.username && <p className="text-red-500 text-sm mt-1">{errors.username.message as string}</p>}
                   </div>
                   <div>
                     <label className="block text-sm font-medium mb-1">Email</label>
@@ -121,7 +121,7 @@ export default function Register() {
                       defaultValue={email || ""} // Autofill email
                       className="w-full p-2 rounded-lg border border-default-200 focus:outline-none focus:ring-2 focus:ring-blue-500"
                     />
-                    {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email.message}</p>}
+                    {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email.message as string}</p>}
                   </div>
                   <div>
                     <label className="block text-sm font-medium mb-1">Password</label>
@@ -130,12 +130,12 @@ export default function Register() {
                       {...register("password", { required: "Password is required" })}
                       className="w-full p-2 rounded-lg border border-default-200 focus:outline-none focus:ring-2 focus:ring-blue-500"
                     />
-                    {errors.password && <p className="text-red-500 text-sm mt-1">{errors.password.message}</p>}
+                    {errors.password && <p className="text-red-500 text-sm mt-1">{errors.password.message as string}</p>}
                   </div>
                   <div className="flex justify-center">
-                    <Turnstile 
-                      siteKey="0x4AAAAAABCKI-wCUvGIAWAG" 
-                      onSuccess={setCaptchaToken} 
+                    <Turnstile
+                      siteKey="0x4AAAAAABCKI-wCUvGIAWAG"
+                      onSuccess={(token: string) => setCaptchaToken(token)}
                     />
                   </div>
                   <button

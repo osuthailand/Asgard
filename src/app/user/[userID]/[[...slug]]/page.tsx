@@ -137,8 +137,8 @@ export default async function Page({ params }: { params: { userID: number; slug:
                             height={250}
                             width={1127}
                             alt=""
-                            className="w-full absolute z-0 object-fill rounded-none h-[250px]"
-                            src={"https://a.rina.place/" + user.id}
+                            className="w-full absolute z-0 object-cover rounded-none h-[250px]"
+                            src={"https://b.rina.place/" + user.id}
                         />
                     </div>
                     <CardFooter className="rounded-b-none p-6 ">

@@ -10,6 +10,7 @@ import { BeatmapLeaderboard } from "./components/leaderboard";
 import { getServerSession } from "next-auth";
 import { options } from "@/app/api/auth/[...nextauth]/options";
 import { VersionSelector } from "./components/version";
+import { RankRequestButton } from "./components/rankRequest";
 
 export default async function BeatmapPage({
     params
@@ -113,6 +114,7 @@ export default async function BeatmapPage({
                                 >
                                     osu!direct
                                 </Button>
+                                <RankRequestButton setID={mapInfo.set_id} />
                             </div>
                         </div>
                         <div className="-md:px-8 -md:py-4 md:min-w-[400px] -md:mt-4 -md:bg-content2/70">
